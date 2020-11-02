@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ProductListFragment">
+
+    <fragment
+        android:id="@+id/ProductListFragment"
+        android:name="com.ardeal.labandroid.todo.products.ProductListFragment"
+        android:label="@string/product_list_fragment_label"
+        tools:layout="@layout/fragment_product_list">
+
+        <action
+            android:id="@+id/action_ProductListFragment_to_ProductEditFragment"
+            app:destination="@id/ProductEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ProductEditFragment"
+        android:name="com.ardeal.labandroid.todo.product.ProductEditFragment"
+        android:label="@string/product_edit_fragment_label"
+        tools:layout="@layout/fragment_product_edit">
+
+        <action
+            android:id="@+id/action_ProductEditFragment_to_ProductListFragment"
+            app:destination="@id/ProductListFragment" />
+    </fragment>
+</navigation>

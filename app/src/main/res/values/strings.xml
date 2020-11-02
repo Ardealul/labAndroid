@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">labAndroid</string>
+    <string name="app_name">PRODUCT LIST</string>
+    <string name="title">Product list</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="product_list_fragment_label">Product List</string>
+    <string name="product_edit_fragment_label">Product Edit</string>
+    <string name="edit">Edit</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="product_list_fragment">Product list fragment</string>
+    <string name="product_edit_fragment">Product edit fragment</string>
+    <string name="example_name">ex. Pepsi</string>
+    <string name="example_description">ex. suc</string>
+    <string name="example_price">ex. 10</string>
 </resources>
