@@ -8,6 +8,13 @@
     <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
 
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="invalid_username">Username is not valid</string>
+    <string name="invalid_password">Password must not be empty</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+
     <string name="product_list_fragment">Product list fragment</string>
     <string name="product_edit_fragment">Product edit fragment</string>
     <string name="example_name">ex. Pepsi</string>

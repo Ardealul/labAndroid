@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.ardeal.labandroid.R
+import com.ardeal.labandroid.auth.data.AuthRepository
 import com.ardeal.labandroid.core.TAG
 import kotlinx.android.synthetic.main.fragment_product_list.*
 
@@ -33,6 +34,10 @@ class ProductListFragment: Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.v(TAG, "onActivityCreated")
+        if (!AuthRepository.isLoggedIn) {
+            findNavController().navigate(R.id.LoginFragment)
+            return;
+        }
         setupProductList()
         fab.setOnClickListener {
             Log.v(TAG, "add new product")

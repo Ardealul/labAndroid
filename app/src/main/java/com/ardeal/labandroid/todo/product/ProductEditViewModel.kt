@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ardeal.labandroid.core.TAG
+import com.ardeal.labandroid.core.Result
 import com.ardeal.labandroid.todo.data.Product
 import com.ardeal.labandroid.todo.data.ProductRepository
 import kotlinx.coroutines.launch
@@ -26,15 +27,17 @@ class ProductEditViewModel : ViewModel() {
             Log.i(TAG, "loadProduct...")
             mutableFetching.value = true
             mutableException.value = null
-            try {
-                mutableProduct.value = ProductRepository.load(productId)
-                Log.i(TAG, "loadProduct succeeded")
-                mutableFetching.value = false
-            } catch (e: Exception) {
-                Log.w(TAG, "loadProduct failed", e)
-                mutableException.value = e
-                mutableFetching.value = false
+            when (val result = ProductRepository.load(productId)) {
+                is Result.Success -> {
+                    Log.d(TAG, "loadProduct succeeded")
+                    mutableProduct.value = result.data
+                }
+                is Result.Error -> {
+                    Log.w(TAG, "loadProduct failed", result.exception)
+                    mutableException.value = result.exception
+                }
             }
+            mutableFetching.value = false
         }
     }
 
@@ -47,20 +50,24 @@ class ProductEditViewModel : ViewModel() {
             product.price = price
             mutableFetching.value = true
             mutableException.value = null
-            try {
-                if (product.id.isNotEmpty()) {
-                    mutableProduct.value = ProductRepository.update(product)
-                } else {
-                    mutableProduct.value = ProductRepository.save(product)
-                }
-                Log.i(TAG, "saveOrUpdateProduct succeeded");
-                mutableCompleted.value = true
-                mutableFetching.value = false
-            } catch (e: Exception) {
-                Log.w(TAG, "saveOrUpdateProduct failed", e);
-                mutableException.value = e
-                mutableFetching.value = false
+            val result: Result<Product>
+            if (product._id.isNotEmpty()) {
+                result = ProductRepository.update(product)
+            } else {
+                result = ProductRepository.save(product)
             }
+            when (result) {
+                is Result.Success -> {
+                    Log.d(TAG, "saveOrUpdateProduct succeeded");
+                    mutableProduct.value = result.data
+                }
+                is Result.Error -> {
+                    Log.w(TAG, "saveOrUpdateProduct failed", result.exception);
+                    mutableException.value = result.exception
+                }
+            }
+            mutableCompleted.value = true
+            mutableFetching.value = false
         }
     }
 }

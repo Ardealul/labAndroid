@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ardeal.labandroid.core.TAG
+import com.ardeal.labandroid.core.Result
 import com.ardeal.labandroid.todo.data.Product
 import com.ardeal.labandroid.todo.data.ProductRepository
 import kotlinx.coroutines.launch
@@ -19,27 +20,22 @@ class ProductListViewModel : ViewModel() {
     val loading: LiveData<Boolean> = mutableLoading
     val loadingError: LiveData<Exception> = mutableException
 
-    fun createProduct(position: Int): Unit {
-        val list = mutableListOf<Product>()
-        list.addAll(mutableProducts.value!!)
-        list.add(Product(position.toString(), "product " + position, "description", "10"))
-        mutableProducts.value = list
-    }
-
     fun loadProducts() {
         viewModelScope.launch {
             Log.v(TAG, "loadProducts...");
             mutableLoading.value = true
             mutableException.value = null
-            try {
-                mutableProducts.value = ProductRepository.loadAll()
-                Log.d(TAG, "loadProducts succeeded");
-                mutableLoading.value = false
-            } catch (e: Exception) {
-                Log.w(TAG, "loadProducts failed", e);
-                mutableException.value = e
-                mutableLoading.value = false
+            when (val result = ProductRepository.loadAll()) {
+                is Result.Success -> {
+                    Log.d(TAG, "loadProducts succeeded");
+                    mutableProducts.value = result.data
+                }
+                is Result.Error -> {
+                    Log.w(TAG, "loadProducts failed", result.exception);
+                    mutableException.value = result.exception
+                }
             }
+            mutableLoading.value = false
         }
     }
 }

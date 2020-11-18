@@ -31,7 +31,7 @@ class ProductListAdapter(
         onProductClick = View.OnClickListener { view ->
             val product = view.tag as Product
             fragment.findNavController().navigate(R.id.ProductEditFragment, Bundle().apply {
-                putString(ProductEditFragment.PRODUCT_ID, product.id)
+                putString(ProductEditFragment.PRODUCT_ID, product._id)
             })
         }
     }

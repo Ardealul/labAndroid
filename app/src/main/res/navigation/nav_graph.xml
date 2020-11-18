@@ -6,6 +6,12 @@
     app:startDestination="@id/ProductListFragment">
 
     <fragment
+        android:id="@+id/LoginFragment"
+        android:name="com.ardeal.labandroid.auth.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
         android:id="@+id/ProductListFragment"
         android:name="com.ardeal.labandroid.todo.products.ProductListFragment"
         android:label="@string/product_list_fragment_label"
