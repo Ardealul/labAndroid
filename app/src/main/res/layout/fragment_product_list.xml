@@ -33,4 +33,12 @@
         app:fabCustomSize="70dp"
         app:maxImageSize="70dp" />
 
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom"
+        android:text="@string/logout" />
+
 </FrameLayout>

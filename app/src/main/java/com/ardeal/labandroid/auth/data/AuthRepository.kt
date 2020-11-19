@@ -2,6 +2,7 @@ package com.ardeal.labandroid.auth.data
 
 import com.ardeal.labandroid.auth.data.remote.RemoteAuthDataSource
 import com.ardeal.labandroid.core.Api
+import com.ardeal.labandroid.core.Constants
 import com.ardeal.labandroid.core.Result
 
 object AuthRepository {
@@ -17,6 +18,7 @@ object AuthRepository {
 
     fun logout() {
         user = null
+        Constants.instance()?.deleteValueString("token")
         Api.tokenInterceptor.token = null
     }
 
@@ -25,12 +27,13 @@ object AuthRepository {
         val result = RemoteAuthDataSource.login(user)
         if (result is Result.Success<TokenHolder>) {
             setLoggedInUser(user, result.data)
+            Constants.instance()?.storeValueString("token", result.data.token)
         }
         return result
     }
 
     private fun setLoggedInUser(user: User, tokenHolder: TokenHolder) {
-        this.user = user
+        AuthRepository.user = user
         Api.tokenInterceptor.token = tokenHolder.token
     }
 }

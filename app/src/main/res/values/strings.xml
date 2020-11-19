@@ -9,6 +9,7 @@
     <string name="cancel">Cancel</string>
 
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="username">Username</string>
     <string name="invalid_username">Username is not valid</string>
     <string name="invalid_password">Password must not be empty</string>
