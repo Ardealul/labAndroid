@@ -1,11 +1,9 @@
 package com.ardeal.labandroid.auth.login
 
+import android.app.Application
 import android.util.Log
 import android.util.Patterns
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ardeal.labandroid.R
 import com.ardeal.labandroid.auth.data.AuthRepository
 import com.ardeal.labandroid.auth.data.TokenHolder
@@ -13,7 +11,7 @@ import com.ardeal.labandroid.core.TAG
 import com.ardeal.labandroid.core.Result
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val mutableLoginFormState = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = mutableLoginFormState
 

@@ -39,10 +39,14 @@ class ProductListFragment: Fragment() {
 //            findNavController().navigate(R.id.LoginFragment)
 //            return;
 //        }
+        Log.v(TAG, "inainte?")
+        Log.v(TAG, Constants.instance()?.fetchValueString("token").toString())
         if(Constants.instance()?.fetchValueString("token") == null){
             findNavController().navigate(R.id.LoginFragment)
+            Log.v(TAG, "intri macar aici?")
 //            return;
         }
+        Log.v(TAG, "dupa?")
         setupProductList()
         fab.setOnClickListener {
             Log.v(TAG, "add new product")
@@ -55,7 +59,7 @@ class ProductListFragment: Fragment() {
         }
     }
 
-    private fun setupProductList() {
+    private fun setupProductList() { //////
         productListAdapter = ProductListAdapter(this)
         product_list.adapter = productListAdapter
         productsModel = ViewModelProvider(this).get(ProductListViewModel::class.java)
